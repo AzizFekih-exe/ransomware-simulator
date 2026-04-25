@@ -1,5 +1,5 @@
 # Encryptor Component Specification
-**IT360 Project 14 | P1: Malware Developer | Phase 2**
+**IT360 Project 14 | Phase 2**
 
 
 
@@ -8,7 +8,6 @@
 | Field | Detail |
 |---|---|
 | Component Name | Encryptor / Decryptor |
-| Owner | P1 — Malware Developer |
 | Language | Python 3.11+ |
 | Library | `cryptography` (OpenSSL wrapper) |
 | Files | `src/encryptor/encryptor.py`, `src/encryptor/decryptor.py` |
