@@ -19,10 +19,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install flake8 bandit
+          pip install flake8 bandit pytest cryptography
       
       - name: Run flake8
         run: flake8 src/ --max-line-length=100
 
       - name: Run bandit
         run: bandit -r src/ -ll
+
+      - name: Run unit tests
+        run: pytest tests/unit/ -v
