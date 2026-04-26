@@ -1,0 +1,337 @@
+{
+  "name": "IT360 Ransomware Simulator — ATT&CK Layer",
+  "versions": {
+    "attack": "14",
+    "navigator": "4.9",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "MITRE ATT&CK technique mapping for the IT360 Project 14 ransomware simulator. Produced by P4 (Threat Intelligence Analyst). Implemented techniques are highlighted in red; documented-only (not implemented) techniques in amber; partial implementations in yellow.",
+  "filters": {
+    "platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ]
+  },
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "aggregateFunction": "average",
+    "showID": true,
+    "showName": true,
+    "showAggregateScores": false,
+    "countUnscored": false,
+    "expandedSubtechniques": "annotated"
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1059",
+      "tactic": "execution",
+      "color": "",
+      "comment": "",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1059.006",
+      "tactic": "execution",
+      "score": 100,
+      "color": "#c0392b",
+      "comment": "IMPLEMENTED — Full kill chain written in Python 3.11. dropper.py is the execution entry point, calling encryptor.py for file operations and requests for C2 communication.",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Implementation file",
+          "value": "src/dropper/dropper.py, src/encryptor/encryptor.py"
+        },
+        {
+          "name": "Status",
+          "value": "Fully implemented"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1083",
+      "tactic": "discovery",
+      "score": 100,
+      "color": "#c0392b",
+      "comment": "IMPLEMENTED — encryptor.py uses os.walk(TARGET_DIRECTORY) to recursively enumerate files. Extension allow-list (TARGET_EXTENSIONS) and deny-list (EXTENSION_BLACKLIST) defined in config.py.",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Implementation file",
+          "value": "src/encryptor/encryptor.py::discover_target_files()"
+        },
+        {
+          "name": "Status",
+          "value": "Fully implemented"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1005",
+      "tactic": "collection",
+      "score": 100,
+      "color": "#c0392b",
+      "comment": "IMPLEMENTED — encryptor.py reads complete byte content of each target file before encryption. build_manifest() reads each file to compute SHA-256 hash for integrity verification.",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Implementation file",
+          "value": "src/encryptor/encryptor.py::build_manifest(), encrypt_file()"
+        },
+        {
+          "name": "Status",
+          "value": "Fully implemented"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1486",
+      "tactic": "impact",
+      "score": 100,
+      "color": "#c0392b",
+      "comment": "IMPLEMENTED — AES-256-CBC encryption loop in encryptor.py. Random 256-bit key + 128-bit IV per execution via os.urandom(). IV prepended to ciphertext. Files renamed with .locked extension. SHA-256 manifest encrypted and saved as .manifest.enc.",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Implementation file",
+          "value": "src/encryptor/encryptor.py::encrypt_file(), run_encryption()"
+        },
+        {
+          "name": "Cipher",
+          "value": "AES-256-CBC with PKCS7 padding"
+        },
+        {
+          "name": "Status",
+          "value": "Fully implemented"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1041",
+      "tactic": "exfiltration",
+      "score": 100,
+      "color": "#c0392b",
+      "comment": "IMPLEMENTED — dropper.py RSA-2048-OAEP wraps the AES session key and sends it via HTTPS POST to /register on server.py. Payload: {victim_id, rsa_encrypted_aes_key, hostname, timestamp}. Plaintext AES key never transmitted.",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Implementation file",
+          "value": "src/dropper/dropper.py"
+        },
+        {
+          "name": "Protocol",
+          "value": "HTTPS POST to 192.168.56.101:5000/register"
+        },
+        {
+          "name": "Status",
+          "value": "Fully implemented"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1070",
+      "tactic": "defense-evasion",
+      "color": "",
+      "comment": "",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1070.004",
+      "tactic": "defense-evasion",
+      "score": 100,
+      "color": "#c0392b",
+      "comment": "IMPLEMENTED — _secure_delete() in encryptor.py overwrites each original file with zero bytes (b'\\x00' * size), calls os.fsync() to flush to disk, then os.remove(). Prevents plaintext recovery via file carving.",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Implementation file",
+          "value": "src/encryptor/encryptor.py::_secure_delete()"
+        },
+        {
+          "name": "Method",
+          "value": "Single-pass zero-overwrite + os.fsync() + os.remove()"
+        },
+        {
+          "name": "Status",
+          "value": "Fully implemented"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1071",
+      "tactic": "command-and-control",
+      "color": "",
+      "comment": "",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1071.001",
+      "tactic": "command-and-control",
+      "score": 100,
+      "color": "#c0392b",
+      "comment": "IMPLEMENTED — server.py implements a Flask HTTPS server on port 5000. Self-signed TLS certificate loaded from src/c2_server/certs/cert.pem. Endpoints: POST /register, GET /getkey/<victim_id>, GET /status (admin-only).",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Implementation file",
+          "value": "src/c2_server/server.py"
+        },
+        {
+          "name": "Framework",
+          "value": "Flask 3.x + self-signed TLS"
+        },
+        {
+          "name": "Status",
+          "value": "Fully implemented"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1027",
+      "tactic": "defense-evasion",
+      "score": 50,
+      "color": "#f39c12",
+      "comment": "PARTIAL — RSA-wrapped AES key is base64-encoded in dropper.py before transmission. Encrypted .locked files have near-maximum entropy (~8.0 bits/byte), making file type identification impossible without the AES key. No binary packing or code obfuscation implemented.",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Implementation file",
+          "value": "src/dropper/dropper.py (base64 encoding)"
+        },
+        {
+          "name": "Status",
+          "value": "Partial — base64 encoding + ciphertext entropy only"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1490",
+      "tactic": "impact",
+      "score": 25,
+      "color": "#e67e22",
+      "comment": "DOCUMENTED ONLY — Volume Shadow Copy deletion (vssadmin delete shadows /all /quiet) is documented as a real-world technique used by WannaCry, Conti, and LockBit 3.0. Not implemented — irreversible outside the VM and represents unacceptable safety risk in academic context.",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Status",
+          "value": "Documented only — not implemented"
+        },
+        {
+          "name": "Reason",
+          "value": "Irreversible system modification outside VM scope"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1547",
+      "tactic": "persistence",
+      "color": "",
+      "comment": "",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1547.001",
+      "tactic": "persistence",
+      "score": 25,
+      "color": "#e67e22",
+      "comment": "DOCUMENTED ONLY — Registry run key persistence (HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run) documented for awareness. Not implemented — would cause dropper to persist on host machine across reboots, unacceptable safety risk in academic setting.",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Status",
+          "value": "Documented only — not implemented"
+        },
+        {
+          "name": "Reason",
+          "value": "Risk of persistence outside isolated VM environment"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    }
+  ],
+  "gradient": {
+    "colors": [
+      "#ffffff",
+      "#e67e22",
+      "#c0392b"
+    ],
+    "minValue": 0,
+    "maxValue": 100
+  },
+  "legendItems": [
+    {
+      "label": "Fully implemented (score 100)",
+      "color": "#c0392b"
+    },
+    {
+      "label": "Partially implemented (score 50)",
+      "color": "#f39c12"
+    },
+    {
+      "label": "Documented only — not implemented (score 25)",
+      "color": "#e67e22"
+    }
+  ],
+  "metadata": [
+    {
+      "name": "Project",
+      "value": "IT360 — Project 14: Ransomware Simulator"
+    },
+    {
+      "name": "Author",
+      "value": "P4 — Threat Intelligence Analyst"
+    },
+    {
+      "name": "ATT&CK Version",
+      "value": "14"
+    },
+    {
+      "name": "Phase",
+      "value": "3 — Final Submission"
+    },
+    {
+      "name": "Navigator import URL",
+      "value": "https://mitre-attack.github.io/attack-navigator/"
+    }
+  ],
+  "links": [],
+  "showTacticRowBackground": true,
+  "tacticRowBackground": "#1a1a2e",
+  "selectTechniquesAcrossTactics": false,
+  "selectSubtechniquesWithParent": false,
+  "selectVisibleTechniques": false
+}
