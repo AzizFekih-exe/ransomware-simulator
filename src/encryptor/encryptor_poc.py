@@ -7,8 +7,7 @@ SAFETY NOTICE:
     exists in the current directory. Always run inside an air-gapped VM.
     Never execute on a host machine or any system with real data.
 
-Author : P1 — Malware Developer
-Course : IT360
+
 Purpose: Phase 1 PoC — demonstrate AES-256-CBC file encryption using
          the `cryptography` library. No networking. No recursion.
          Single target file only.
