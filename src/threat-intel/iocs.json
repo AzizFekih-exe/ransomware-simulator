@@ -1,0 +1,16 @@
+{
+  "file_extensions": [".simulated"],
+  "ransom_note_files": ["README_RESTORE_FILES.txt"],
+  "suspicious_behaviors": [
+    "mass file modification",
+    "rapid file renaming",
+    "file extension changes",
+    "ransom note creation"
+  ],
+  "directories_targeted": [
+    "Documents",
+    "Desktop",
+    "Downloads",
+    "demo_files"
+  ]
+}
