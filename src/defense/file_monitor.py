@@ -1,10 +1,11 @@
 import os
 import time
 
+
 class FileMonitor:
     def __init__(self, target_dir):
         self.target_dir = target_dir
-        self.file_snapshot = {}
+        self.file_snapshot = self.scan_files()  # ✅ critical fix
 
     def scan_files(self):
         current_snapshot = {}

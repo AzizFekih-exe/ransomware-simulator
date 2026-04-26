@@ -18,7 +18,7 @@ class BehaviorAnalyzer:
             self.events.popleft()
 
     def detect_mass_modification(self):
-        modifications = [e for t, e in self.events if e[0] == "MODIFIED"]
+        modifications = [e for t, e in self.events if e[0] in ("MODIFIED", "CREATED", "DELETED")]
 
         if len(modifications) >= self.threshold:
             return True, len(modifications)
