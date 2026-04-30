@@ -5,7 +5,6 @@ IT360 Project 14: Ransomware Simulator (Academic Use Only)
 Accepts the AES key returned by the C2 server after simulated payment.
 Decrypts all .locked files and verifies integrity against the manifest.
 
-Author : P1 — Malware Developer
 Phase  : 2
 """
 

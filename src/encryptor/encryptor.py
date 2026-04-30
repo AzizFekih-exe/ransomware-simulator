@@ -9,7 +9,6 @@ Upgrades from Phase 1 PoC:
   - Structured return value for C2 handoff (used by dropper.py)
   - Full kill-switch guard
 
-Author : P1 — Malware Developer
 Phase  : 2
 """
 

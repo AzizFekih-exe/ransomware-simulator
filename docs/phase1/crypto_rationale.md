@@ -1,6 +1,4 @@
 # Cryptographic Rationale for the Ransomware Simulator
-**IT360 — Project 14 | P1: Malware Developer**
-
 ---
 
 ## 1. The Core Problem: Why One Algorithm Is Never Enough

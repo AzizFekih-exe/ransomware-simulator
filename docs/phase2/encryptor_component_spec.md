@@ -1,7 +1,4 @@
 # Encryptor Component Specification
-**IT360 Project 14 | Phase 2**
-
-
 
 ## Component Overview
 
