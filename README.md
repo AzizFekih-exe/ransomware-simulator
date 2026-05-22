@@ -114,10 +114,10 @@ The simulator implements 10 specific techniques across 7 tactics, providing a co
 
 | Member | Role | Contribution |
 | :--- | :--- | :--- |
-| **Rooya Jelassi** | P1 — Project Manager | Coordination, Risk Management, Dropper Logic |
-| **Oussama Zmitri** | P2 — Security Researcher | C2 Architecture, Threat Modeling, Kill-Chain |
+| **Rooya Jelassi** | P1 — Malware Developer (Lead Programmer) | Encryption/decryption engine |
+| **Oussama Zmitri** | P2 — C2 & Network Engineer | Key server, exfiltration channel |
 | **Mohamed Aziz Fekih**| P3 — Systems Architect | Repository Management, CI/CD, Common Config |
-| **Ghayth Hajji** | P4 — Developer | Core Encryptor/Decryptor, Manifest System |
+| **Ghayth Hajji** | P4 — Threat Intelligence Analyst | Research, MITRE ATT&CK mapping,SotA |
 | **Noutayla Nefzaoui** | P5 — VM & Testing Lead | Environment Hardening, Snapshot Policy, QA |
 
 ---
